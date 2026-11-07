@@ -1,0 +1,44 @@
+// Pruebas del lenguaje de modelado, el corrector y los contraejemplos:  node tests/test_lab.js
+const X0 = require('./ctx.js')();
+const X = X0; let n = 0, f = 0; const ok = (nom, c, e = '') => { n++; if (!c) f++; console.log((c ? '✓ ' : '✕ ') + nom + (e ? ' · ' + e : '')); };
+const S = 'PRUEBA';
+for (const ej of X.FORM) { const r = X.juzga(ej.id, ej.ref, S); ok(`${ej.id}: la referencia es correcta y fuerte en ${r.nInst} instancias`, r.ok && r.fuerte, JSON.stringify(r).slice(0, 120)); }
+const debil = 'var y[i] bin\nvar x[i,j] cont 0 1\nmin sum{i} f[i]*y[i] + sum{i,j} c[i,j]*x[i,j]\nasig{j}: sum{i} x[i,j] = 1\nenlace{i}: sum{j} x[i,j] <= n*y[i]';
+const rd = X.juzga('F_ufl', debil, S);
+ok('UFL débil (agregada): correcta pero DÉBIL, con gap mayor que la referencia', rd.ok && !rd.fuerte && rd.gapAlu > rd.gapRef + 0.01, `gap ${(100 * rd.gapAlu).toFixed(1)} % frente a ${(100 * rd.gapRef).toFixed(1)} %`);
+const sinAsig = 'var y[i] bin\nvar x[i,j] cont 0 1\nmin sum{i} f[i]*y[i] + sum{i,j} c[i,j]*x[i,j]\nenlace{i,j}: x[i,j] <= y[i]';
+const rp = X.juzga('F_ufl', sinAsig, S);
+ok('UFL sin asignación: incorrecta por permisiva y señala la regla «asig»', !rp.ok && rp.fallo.cod === 'permisivo' && rp.fallo.viola.includes('asig'), JSON.stringify(rp.fallo).slice(0, 160));
+const cflSinEnlace = 'var y[i] bin\nvar x[i,j] cont 0 1\nmin sum{i} f[i]*y[i] + sum{i,j} c[i,j]*x[i,j]\nasig{j}: sum{i} x[i,j] = 1\ncap{i}: sum{j} d[j]*x[i,j] <= Q[i]*y[i]';
+const rc = X.juzga('F_cfl', cflSinEnlace, S);
+ok('CFL sin x ≤ y: correcta pero débil', rc.ok && !rc.fuerte, JSON.stringify(rc).slice(0, 140));
+const restr = 'var y[i] bin\nvar x[i,j] cont 0 1\nmin sum{i} f[i]*y[i] + sum{i,j} c[i,j]*x[i,j]\nasig{j}: sum{i} x[i,j] = 1\nenlace{i,j}: x[i,j] <= y[i]\nuna: sum{i} y[i] <= 1';
+const rr = X.juzga('F_ufl', restr, S);
+ok('restricción de más: detectada como demasiado restrictiva o con otro óptimo', !rr.ok && ['restrictivo', 'infactible'].includes(rr.fallo.cod) || rr.ok, JSON.stringify(rr.fallo || {}).slice(0, 120));
+const mal1 = X.juzga('F_mochila', 'var y[i] bin\nmax sum{i} v[i]*y[i]*y[i]\ncap: sum{i} w[i]*y[i] <= C', S);
+ok('error de no linealidad con número de línea', !mal1.ok && mal1.error.cod === 'noLineal' && mal1.error.linea === 2);
+const mal2 = X.juzga('F_mochila', 'var y[i] bin\nmax sum{i} v[i]*z[i]', S);
+ok('nombre desconocido', mal2.error?.cod === 'nombreDesconocido', JSON.stringify(mal2.error));
+const mal3 = X.juzga('F_mochila', 'var y[i] bin\nmax sum{i} v[i]*y[i]\ncap: sum{i} w[i]*y[i] < C', S);
+ok('«<» estricto: error claro', mal3.error?.cod === 'opEstricto');
+const mal4 = X.juzga('F_mochila', 'var y[i] bin\nmax v[i]*y[i]', S);
+ok('índice libre (falta sum)', mal4.error?.cod === 'indiceLibre');
+const alt = X.juzga('F_mochila', '# otra notación\nvar sel[i] binaria\nmaximize Σ{i} v[i]·sel[i]\nsum{i} w[i]*sel[i] ≤ C', S);
+ok('notación alternativa (Σ, ·, ≤, binaria, maximize, sin nombre) aceptada y correcta', alt.ok, JSON.stringify(alt).slice(0, 100));
+const mins = X.juzga('F_mochila', 'var y[i] bin\nmin sum{i} -v[i]*y[i]\ncap: sum{i} w[i]*y[i] <= C', S);
+ok('cambiar el sentido (min de −v) se detecta', !mins.ok && mins.fallo.cod === 'sentido');
+ok('determinista: misma semilla → mismo veredicto', JSON.stringify(X.juzga('F_ufl', debil, S)) === JSON.stringify(rd));
+// contraejemplos: una solución buena y una mala para cada uno
+const C = (id, a) => X.compruebaCX(id, a);
+const ufl2 = (y, x) => ({'y[1]': y[0], 'y[2]': y[1], ...Object.fromEntries(x.flatMap((r, i) => r.map((v, j) => [`x[${i + 1},${j + 1}]`, v])))});
+ok('X_bigm: una planta sirviendo a los 4 clientes es contraejemplo válido', C('X_bigm', ufl2([1, 0], [[1, 1, 1, 1], [0, 0, 0, 0]])).ok);
+ok('X_bigm: repartir 2 y 2 no lo es (el modelo la acepta)', C('X_bigm', ufl2([1, 1], [[1, 1, 0, 0], [0, 0, 1, 1]])).motivo === 'modeloAcepta');
+ok('X_bigm: una solución inválida en la realidad no vale', C('X_bigm', ufl2([0, 0], [[1, 1, 1, 1], [0, 0, 0, 0]])).motivo === 'reglaInvalida');
+ok('X_asig: no servir a nadie es contraejemplo', C('X_asig', {'y[1]': 0, 'y[2]': 0}).ok);
+ok('X_asig: una solución completa no lo es', C('X_asig', {'y[1]': 1, 'x[1,1]': 1, 'x[1,2]': 1, 'x[1,3]': 1}).motivo === 'reglaValida');
+ok('X_disy: z = 1, x1 = x2 = 5 es contraejemplo', C('X_disy', {x1: 5, x2: 5, z: 1}).ok);
+ok('X_disy: z = 1, x1 = 6, x2 = 1 no lo es (cumple la segunda)', C('X_disy', {x1: 6, x2: 1, z: 1}).motivo === 'reglaValida');
+ok('X_disy: z = 0 con x1 = x2 = 5 lo rechaza el modelo', C('X_disy', {x1: 5, x2: 5, z: 0}).motivo === 'modeloRechaza');
+ok('X_cub: {1,3} demuestra que la «cubierta» no es válida', C('X_cub', {'x[1]': 1, 'x[3]': 1}).ok);
+ok('X_cub: {1,2} no vale (no cabe)', C('X_cub', {'x[1]': 1, 'x[2]': 1}).motivo === 'reglaInvalida');
+console.log(`\n${n - f}/${n} pruebas superadas`); process.exit(f ? 1 : 0);

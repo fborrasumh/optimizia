@@ -1,0 +1,157 @@
+Imprimir | Cerrar
+
+
+
+
+   TÉCNICAS AVANZADAS DE OPTIMIZACIÓN
+
+ Fecha de validación de la guía docente: 29/06/2026
+ Información para el curso académico: 2026-2027
+
+
+ Asignatura
+
+    Código
+    8265
+
+    Titulación
+    Máster Universitario en Estadística Computacional y Ciencia de Datos para la
+    Toma de Decisiones
+    Instituto Centro de Investigación Operativa
+
+    Curso
+    Curso 1 de Máster Universitario en Estadística Computacional y Ciencia de Datos
+    para la Toma de Decisiones
+
+    Semestre
+    2
+
+    Tipo
+    Optativa
+
+    Idioma
+    Castellano
+
+    ECTS: 3
+    Teoría: 2
+    Práctica: 1
+
+    Materia
+    OPTATIVIDAD
+Descripción
+Técnicas exactas de resolución basadas en la mejora de los modelos. Técnicas de
+descomposición para resolver modelos de optimización estructurados. Técnicas
+heurísticas y meta-heurísticas de resolución para problemas de optimización
+combinatoria.
+
+
+Profesorado
+
+  Nombre                                             Responsable     Teoría    Práctica
+
+
+
+  LANDETE RUIZ, MERCEDES                                  ✓            ✓          ✓
+
+
+  MONGE IVARS, JUAN FRANCISCO                                          ✓          ✓
+
+
+
+Profesorado externo de máster o!cial
+
+  Nombre                                             Responsable     Teoría    Práctica
+
+
+
+  JAIME ALCANTARA, JUAN DE DIOS                                        ✓          ✓
+
+
+
+Competencias y resultados de aprendizaje
+
+Competencias Generales
+
+   CG1 - RESOLUCIÓN DE PROBLEMAS. Aplicar los conocimientos adquiridos y explotar
+   su potencial para la resolución de problemas en entornos nuevos o poco conocidos
+   dentro de contextos más amplios (o multidisciplinares) en la gestión de información
+   y la toma de decisiones basadas en la Ciencia de los Datos.
+   CG4 - CREATIVIDAD. Ser capaz de crear soluciones creativas a los problemas
+   complejos mediante el desarrollo de nuevas e innovadoras metodologías adaptadas
+   al ámbito de la Ciencia de los Datos
+   CG7 - CONOCIMIENTO ESPECIALIZADO. Poseer y comprender conocimientos
+   avanzados relativos a la gestión de la información basadas en el uso de la Ciencia de
+   los Datos reconociendo su rango de aplicabilidad y limitaciones
+Competencias Específicas
+
+  CE11 - Capacidad para desarrollar soluciones en el ámbito de la toma de decisiones
+  en empresas privadas y en el sector público.
+  CE14 - Modelización matemática de sistemas complejos en el ámbito de los datos y
+  la toma de decisiones
+  CE15 - Capacidad para transformar el conocimiento procedente de los datos en
+  alternativas para la toma de decisiones o analizar las consecuencias de las posibles
+  alternativas en cualquier de decisión
+
+Objetivos (resultados de aprendizaje)
+
+  Conocer el estado del arte en métodos de descomposición de problemas de
+  optimización.
+  Diseñar estrategias para la resolución de problemas de optimización estructurados
+  de grandes dimensiones
+  Utilizar el algoritmo de descomposición más adecuado a cada tipo de problema
+
+
+Contenidos
+
+Unidades didácticas
+
+  Mathematical Programming
+  Reforzamiento de Modelos de Optimización
+
+Bibliografía Básica
+
+  Nemhauser, George. Wolsey, Laurence A. "Integer and combinatorial
+  optimization" . Wiley.
+  Schrijver, Alexander. "Theory of linear and integer programming" . : Wiley.
+
+Bibliografía Complementaria
+
+  Saldanha da Gama, Francisco. "Location Science" .
+  Martí, Rafael. Reinelt, Gerhard. "The Linear Ordering Problem" .
+  Birge, John R. Louveaux, François. "Introduction to Stochastic Programming" .
+  Renegar, James (. "A Mathematical view of interior-point methods in convex
+  optimization" . SIAM.
+   Winston, Wayne L. "Introduction to mathematical programming" . Thomson.
+
+
+Metodología y evaluación
+
+Metodología
+
+   Aprendizaje basado en problemas: Desarrollar aprendizajes activos a través de la
+   resolución de problemas que fomenten en el estudiante el pensamiento y/o
+   experimentación, así como la toma de decisiones.
+   Estudio de casos: Adquisición de aprendizaje mediante el análisis de casos reales o
+   simulados, con el fin de interpretarlos y resolverlos, entrenando diversos
+   procedimientos alternativos de solución.
+   Expositivo/Lección magistral: Transmitir conocimientos y activar procesos
+   cognitivos en el estudiante, implicando su participación.
+   Resolución de ejercicios y problemas: Ejercitar, ensayar y poner en práctica los
+   conocimientos previos mediante la repetición de rutinas.
+
+Evaluación
+
+ El examen final supondrá un 50%, los trabajos y actividades propuestas el otro 50%.
+
+Características de la prueba de evaluación
+
+ Consistirá en una parte teórica y la resolución de un caso práctico.
+
+Criterios de corrección
+
+ La puntuación de cada apartado se indicará en el examen.
+
+Requisitos adicionales
+
+ Se aconseja el seguimiento de seminarios presenciales.
+

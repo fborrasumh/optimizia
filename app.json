@@ -1,0 +1,85 @@
+{
+  "slug": "optimizia",
+  "name": "OptimizIA",
+  "tagline": "Técnicas avanzadas de optimización: práctica adaptativa, laboratorio de modelado y cuadernos OR-Tools",
+  "eyebrow": "Técnicas Avanzadas de Optimización (8265) · Máster en Estadística Computacional y Ciencia de Datos · UMH",
+  "h1": "Refuerza, descompón y busca: *optimización avanzada con práctica que se adapta a ti*",
+  "lede": "Práctica de recuperación por resultado de aprendizaje, con problemas cuya solución calcula el código, y tres cuadernos de Google OR-Tools para Colab: reforzamiento de modelos, descomposición y metaheurísticas.",
+  "logo_icon": "target",
+  "ia": true,
+  "lang": "es",
+  "langs": [
+    "es",
+    "en",
+    "pt"
+  ],
+  "modules": [
+    "00-utils",
+    "10-persist",
+    "20-providers",
+    "30-verify",
+    "60-nav",
+    "65-i18n",
+    "70-report"
+  ],
+  "app_js": [
+    "curriculum.js",
+    "lp.js",
+    "dsl.js",
+    "lab.js",
+    "lab2.js",
+    "actividades.js",
+    "motor.js",
+    "panel.js",
+    "cuadernos.js",
+    "app.js",
+    "ui_lab.js",
+    "ui_act.js",
+    "ui_panel.js",
+    "boot.js"
+  ],
+  "i18n": {
+    "en": {
+      "title": "OptimizIA · Advanced optimisation techniques with adaptive practice and OR-Tools notebooks",
+      "eyebrow": "Advanced Optimisation Techniques (8265) · Master's in Computational Statistics and Data Science · UMH",
+      "h1": "Strengthen, decompose and search: *advanced optimisation with practice that adapts to you*",
+      "lede": "Retrieval practice by learning outcome, with problems whose solution is computed by the code, and three Google OR-Tools notebooks for Colab: model strengthening, decomposition and metaheuristics."
+    },
+    "pt": {
+      "title": "OptimizIA · Técnicas avançadas de otimização com prática adaptativa e cadernos OR-Tools",
+      "eyebrow": "Técnicas Avançadas de Otimização (8265) · Mestrado em Estatística Computacional e Ciência de Dados · UMH",
+      "h1": "Reforçar, decompor e procurar: *otimização avançada com prática que se adapta a si*",
+      "lede": "Prática de recuperação por resultado de aprendizagem, com problemas cuja solução é calculada pelo código, e três cadernos de Google OR-Tools para o Colab: reforço de modelos, decomposição e meta-heurísticas."
+    }
+  },
+  "authors": [
+    {
+      "name": "Fernando Borrás Rocher",
+      "orcid": "0000-0002-5519-4573",
+      "affiliation": "Universidad Miguel Hernández de Elche"
+    },
+    {
+      "name": "Mercedes Landete Ruiz",
+      "orcid": "0000-0002-5201-0476",
+      "affiliation": "Universidad Miguel Hernández de Elche"
+    },
+    {
+      "name": "Juan Francisco Monge Ivars",
+      "orcid": "0000-0003-1224-1867",
+      "affiliation": "Universidad Miguel Hernández de Elche"
+    }
+  ],
+  "idea_credit": "A partir de la Guía Docente de Técnicas Avanzadas de Optimización (8265), curso 2026-2027, del Máster Universitario en Estadística Computacional y Ciencia de Datos para la Toma de Decisiones (UMH).",
+  "catalog": {
+    "cat": "doc",
+    "icon": "ti-target",
+    "sub_es": "Optimización avanzada · práctica adaptativa, laboratorio y OR-Tools",
+    "desc_es": "Práctica adaptativa por resultado de aprendizaje (con seguridad declarada, repaso espaciado y postest), un laboratorio con corrector automático de formulaciones, contraejemplos, poliedros y carrera de cotas resueltos por un solver propio en el navegador, tres cuadernos de Google OR-Tools para Colab con instancia personal que la app verifica, misiones tipo examen, un torneo semanal y un panel para el profesorado. La solución de los problemas la calcula el código; la IA, opcional, solo explica. Sin servidor, en español, inglés y portugués. A partir de la Guía Docente de Técnicas Avanzadas de Optimización (8265, UMH).",
+    "sub_en": "Advanced optimisation · adaptive practice, laboratory and OR-Tools",
+    "desc_en": "Adaptive practice by learning outcome (with declared confidence, spaced review and post-test), a laboratory with an automatic formulation grader, counterexamples, polyhedra and a bound race solved by an in-browser solver, three Google OR-Tools notebooks for Colab with a personal instance verified by the app, exam-style missions, a weekly tournament and a teaching staff panel. Problem solutions are computed by code; the optional AI only explains. No server, in Spanish, English and Portuguese. Based on the Course Guide of Advanced Optimisation Techniques (8265, UMH).",
+    "tit_es": "Técnicas Avanzadas de Optimización",
+    "comp_es": "Modelización entera · Reforzamiento de formulaciones · Descomposición (columnas, lagrangiana, Benders) · Metaheurísticas",
+    "tit_en": "Advanced Optimisation Techniques",
+    "comp_en": "Integer modelling · Formulation strengthening · Decomposition (columns, Lagrangian, Benders) · Metaheuristics"
+  }
+}

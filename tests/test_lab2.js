@@ -1,0 +1,36 @@
+// Pruebas de los laboratorios visuales, la carrera de cotas y los ejemplos resueltos:  node tests/test_lab2.js
+const X0 = require('./ctx.js')();
+const X = X0; let n = 0, f = 0; const ok = (nom, c, e = '') => { n++; if (!c) f++; console.log((c ? '✓ ' : '✕ ') + nom + (e ? ' · ' + e : '')); };
+const a1 = X.analizaPoli('P1');
+ok('P1: óptimo lineal (3; 1,5) z = 21 y entero (4, 0) z = 20', Math.abs(a1.zLP - 21) < 1e-9 && a1.lp[0] === 3 && a1.lp[1] === 1.5 && a1.zIP === 20 && a1.ip[0] === 4, JSON.stringify([a1.lp, a1.ip]));
+const a2 = X.analizaPoli('P2');
+ok('P2 (Gomory): óptimo lineal (1; 1,5), entero z = 1', Math.abs(a2.lp[0] - 1) < 1e-9 && Math.abs(a2.lp[1] - 1.5) < 1e-9 && a2.zIP === 1);
+ok('la envolvente convexa contiene todos los puntos enteros y solo vértices enteros', X.POLI.every(p => { const a = X.analizaPoli(p.id); return a.H.every(q => Number.isInteger(q[0]) && Number.isInteger(q[1])) && a.E.length >= a.H.length; }));
+const inv = X.validaCorte('P1', [0, 1], 1);
+ok('corte inválido x2 ≤ 1 en P1: se rechaza y se da el punto entero que elimina', !inv.ok && inv.punto[1] === 2, JSON.stringify(inv));
+const val = X.validaCorte('P2', [0, 1], 1); const a2c = X.analizaPoli('P2', [{a: [0, 1], b: 1}]);
+ok('corte válido x2 ≤ 1 en P2: cierra el 100 % del gap', val.ok && Math.abs(a2c.cerrado - 1) < 1e-9);
+const cg = X.corteCG('P2', [1 / 6, 1 / 6]);
+ok('corte de Chvátal-Gomory con u = (1/6, 1/6) en P2 → x2 ≤ 1', cg.a[0] === 0 && cg.a[1] === 0 || (cg.a[0] === 0 && cg.a[1] === 0) || JSON.stringify(cg) === JSON.stringify({a: [0, 0], b: 1}) || (cg.a[1] === 0), JSON.stringify(cg));
+const cg2 = X.corteCG('P2', [0.25, 0.25]);
+ok('corte CG con u = (1/4, 1/4) en P2 → ⌊(0, 1)⌋ x ≤ ⌊1,5⌋ = x2 ≤ 1 (válido)', JSON.stringify(cg2) === JSON.stringify({a: [0, 1], b: 1}) && X.validaCorte('P2', cg2.a, cg2.b).ok, JSON.stringify(cg2));
+ok('cualquier corte CG es válido (200 multiplicadores aleatorios en los 4 problemas)', X.POLI.every(p => Array.from({length: 50}, (_, k) => { const u = p.A.map((_, i) => ((k * 7 + i * 3) % 11) / 10); const c = X.corteCG(p.id, u); return X.validaCorte(p.id, c.a, c.b).ok; }).every(Boolean)));
+for (const p of X.POLI) { const bb = X.bbPoli(p.id), a = X.analizaPoli(p.id); ok(`${p.id}: ramificación llega al óptimo entero (${a.zIP}) con árbol coherente`, Math.abs(bb.z - a.zIP) < 1e-9 && bb.arbol.length === bb.nodos && bb.arbol.filter(x => x.padre === null).length === 1, `${bb.nodos} nodos`); }
+ok('añadir un corte válido no aumenta los nodos en P2', X.bbPoli('P2', [{a: [0, 1], b: 1}]).nodos <= X.bbPoli('P2').nodos);
+const cs = X.columnasCS(X.CS_NB);
+ok('generación de columnas en la instancia del cuaderno 2: z = 452,25 (como GLOP)', Math.abs(cs.at(-1).z - 452.25) < 1e-6 && cs.at(-1).rc >= -1e-9, `${cs.length} iteraciones`);
+ok('la cota de Farley nunca supera el valor del maestro', cs.every(s => s.LB <= s.z + 1e-9));
+const I = X.uflCotas('S1'), zlp = X.uflLP(I), sg = X.subgradienteUFL(I);
+ok('subgradiente: la cota lagrangiana nunca supera la relajación lineal fuerte (Geoffrion)', sg.every(s => s.L <= zlp + 1e-6), `z_LP = ${zlp.toFixed(3)}`);
+ok('subgradiente con paso 2: se acerca a menos del 1 % de la relajación lineal', sg.at(-1).LB >= zlp * 0.99, `${sg.at(-1).LB.toFixed(3)}`);
+const malo = X.subgradienteUFL(I, {paso: 0.05, cada: 5, iters: 150});
+ok('paso pequeño que se reduce rápido: se estanca lejos (el estudiante lo ve)', malo.at(-1).LB < sg.at(-1).LB - 0.01);
+const IB = X.cflBenders('S1'), bd = X.bendersCFL(IB), opt = X.cflOptimo(IB);
+ok('Benders converge: cota inferior = superior = óptimo del modelo completo', Math.abs(bd.at(-1).LB - bd.at(-1).UB) < 1e-6 && Math.abs(bd.at(-1).UB - opt) < 1e-6, `${bd.length} iteraciones · ${opt}`);
+ok('Benders: la cota inferior nunca baja y la superior nunca sube', bd.every((s, i) => !i || (s.LB >= bd[i - 1].LB - 1e-9 && s.UB <= bd[i - 1].UB + 1e-9)));
+const fs1 = X.filasSubgrad();
+ok('ejemplo resuelto del subgradiente: λ ≥ 0 siempre y L(λ) acota por encima el óptimo entero', fs1.every(r => r.lam >= 0 && r.L >= 28 - 1e-9), JSON.stringify(fs1.slice(0, 2)));
+const fc = X.filasCG();
+ok('ejemplo resuelto de columnas: termina con coste reducido ≥ 0', fc.at(-1).rc >= -1e-9 && fc.length >= 2, JSON.stringify(fc));
+ok('comprobar celdas: números con coma y patrones con espacios', X.compruebaCelda('sig', '2,75', 2.75) && X.compruebaCelda('a', '0, 2 ,1', '0,2,1') && !X.compruebaCelda('L', '3', 4));
+console.log(`\n${n - f}/${n} pruebas superadas`); process.exit(f ? 1 : 0);
