@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "Si usas este software, cítalo con estos metadatos."
+title: "OptimizIA"
+type: software
+authors:
+  - family-names: "Borrás Rocher"
+    given-names: "Fernando"
+    affiliation: "Universidad Miguel Hernández de Elche"
+    orcid: "https://orcid.org/0000-0002-5519-4573"
+  - family-names: "Landete Ruiz"
+    given-names: "Mercedes"
+    affiliation: "Universidad Miguel Hernández de Elche"
+    orcid: "https://orcid.org/0000-0002-5201-0476"
+  - family-names: "Monge Ivars"
+    given-names: "Juan Francisco"
+    affiliation: "Universidad Miguel Hernández de Elche"
+    orcid: "https://orcid.org/0000-0003-1224-1867"
+doi: "10.5281/zenodo.24045835"
+version: "1.0.0"
+date-released: "2026-11-08"
+url: "https://fborrasumh.github.io/optimizia/"
+repository-code: "https://github.com/fborrasumh/optimizia"
+license: MIT

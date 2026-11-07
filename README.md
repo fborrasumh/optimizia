@@ -4,6 +4,8 @@ Práctica adaptativa y cuadernos de Google OR-Tools para **Técnicas Avanzadas d
 
 **Usar la app:** https://fborrasumh.github.io/optimizia/
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24045835.svg)](https://doi.org/10.5281/zenodo.24045835)
+
 **Idiomas:** español (por defecto), inglés y portugués. Se eligen en la barra superior o con `?lang=en` / `?lang=pt` en la URL. Los cuadernos están en español.
 
 ## Qué hace
@@ -99,7 +101,7 @@ A partir de la Guía Docente de Técnicas Avanzadas de Optimización (8265), cur
 
 ## Cómo citar
 
-Borrás Rocher, F., Landete Ruiz, M. y Monge Ivars, J. F. (2026). *OptimizIA* (v1.0.0) [Software]. (DOI en trámite)
+Borrás Rocher, F., Landete Ruiz, M. y Monge Ivars, J. F. (2026). *OptimizIA* (v1.0.0) [Software]. DOI: [10.5281/zenodo.24045835](https://doi.org/10.5281/zenodo.24045835)
 
 ## Licencia
 
